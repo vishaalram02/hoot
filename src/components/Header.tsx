@@ -47,10 +47,11 @@ const useStyles = createStyles((theme) => ({
 
 interface HeaderSimpleProps {
   links: { link: string; label: string }[];
-  children: []
+  children: [];
+  setFunc: Function
 }
 
-export function HeaderSimple({ links }: HeaderSimpleProps) {
+export function HeaderSimple({ links, setFunc }: HeaderSimpleProps) {
   const [opened, { toggle }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
@@ -63,6 +64,7 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
+        setFunc(link.link);
       }}
     >
       {link.label}

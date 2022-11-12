@@ -1,10 +1,10 @@
 import { AppShell, Button, Header } from "@mantine/core";
 import App from "../App";
-import { HeaderSimple} from "../components/Header";
+import {TableSelection} from "../components/SelectTable";
 
 export function Tasks(){
+
     return (
-        <HeaderSimple links = {[{link: "dashboard", label: "Dashboard"}, {link: "newtask", label: "Create Task"}, {link: "route", label: "Route"}]}>
-        </HeaderSimple>
+        <TableSelection data = {[{ avatar: "string", name: "string", email: "string", job: "string", id: "string" }]}></TableSelection>
     )
 }
