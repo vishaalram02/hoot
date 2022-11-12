@@ -7,6 +7,8 @@ import { Dashboard } from "./pages/Dashboard";
 export default function App() {
   return (
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+      <Stack align="center" mt={50}>
+      </Stack>
     <Router>
       <Routes>
         <Route path="home" element={<Home />} />
