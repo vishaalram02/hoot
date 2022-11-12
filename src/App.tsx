@@ -1,15 +1,23 @@
-import { MantineProvider, Text, Button, Stack } from "@mantine/core";
+import { MantineProvider, Text, Button, Stack, AppShell, Header } from "@mantine/core";
 import { theme } from "./theme";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Tasks } from "./pages/Tasks";
 
 export default function App() {
   return (
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <Stack align="center" mt={50}>
-        <Text size="xl" weight={500}>
-          Welcome to Mantine!
-        </Text>
-        <Button>Click the button</Button>
+        <AppShell>
+
+        </AppShell>
       </Stack>
+    <Router>
+      <Routes>
+        <Route path="home" element={<Home />} />
+        <Route path="tasks" element={<Tasks />} />
+      </Routes>
+    </Router>
     </MantineProvider>
   );
 }
