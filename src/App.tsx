@@ -3,6 +3,8 @@ import { theme } from "./theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Tasks } from "./pages/Tasks";
+import { NewTask } from "./pages/NewTask";
+import { RouteInfo } from "./pages/RouteInfo";
 
 export default function App() {
   return (
@@ -15,7 +17,9 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="home" element={<Home />} />
-        <Route path="tasks" element={<Tasks />} />
+        <Route path="dashboard" element={<Tasks />} />
+        <Route path="newtask" element={<NewTask />} />
+        <Route path="route" element={<RouteInfo />} />
       </Routes>
     </Router>
     </MantineProvider>
