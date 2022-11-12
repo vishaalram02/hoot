@@ -64,7 +64,7 @@ export function HeaderSimple({ links, setFunc }: HeaderSimpleProps) {
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
-        setFunc(link.link);
+        setFunc(link.link)
       }}
     >
       {link.label}
@@ -72,7 +72,7 @@ export function HeaderSimple({ links, setFunc }: HeaderSimpleProps) {
   ));
 
   return (
-    <Header height={60} mb={120}>
+    <Header height={60} mb={20}>
       <Container className={classes.header}>
         <Group spacing={5} className={classes.links}>
           {items}

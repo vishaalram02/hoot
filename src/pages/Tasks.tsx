@@ -1,10 +1,14 @@
 import { AppShell, Button, Header } from "@mantine/core";
-import App from "../App";
-import {TableSelection} from "../components/SelectTable";
+import {TableSelection, TableSelectionProps} from "../components/SelectTable";
+import { useState } from 'react';
 
-export function Tasks(){
+interface TaskProps {
+    onClick: Function;
+    data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
+}
 
+export function Tasks({onClick, data}: TaskProps){
     return (
-        <TableSelection data = {[{ avatar: "string", name: "string", email: "string", job: "string", id: "string" }]}></TableSelection>
+        <TableSelection data = {data}></TableSelection>
     )
 }

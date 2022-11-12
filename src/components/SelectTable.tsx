@@ -10,8 +10,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface TableSelectionProps {
-  data: { avatar: string; name: string; email: string; job: string; id: string }[];
+export interface TableSelectionProps {
+  data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
 }
 
 export function TableSelection({ data }: TableSelectionProps) {
@@ -24,7 +24,7 @@ export function TableSelection({ data }: TableSelectionProps) {
   const toggleAll = () =>
     setSelection((current) => (current.length === data.length ? [] : data.map((item) => item.id)));
 
-  const rows = data.map((item) => {
+  const rows = data.filter((task) => (task.status = "unclaimed")).map((item) => {
     const selected = selection.includes(item.id);
     return (
       <tr key={item.id} className={cx({ [classes.rowSelected]: selected })}>
@@ -43,8 +43,8 @@ export function TableSelection({ data }: TableSelectionProps) {
             </Text>
           </Group>
         </td>
-        <td>{item.email}</td>
-        <td>{item.job}</td>
+        <td>{item.desc}</td>
+        <td>{item.locations}</td>
       </tr>
     );
   });
