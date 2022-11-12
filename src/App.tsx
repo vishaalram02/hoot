@@ -11,8 +11,8 @@ export default function App() {
       </Stack>
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="tasks" element={<Tasks />} />
+        <Route path="home" element={<Home />} />
+        <Route path="dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
     </MantineProvider>
