@@ -1,4 +1,4 @@
-import { Button, Center, createStyles, Group, Stack, TextInput, Title } from "@mantine/core";
+import { Button, Center, createStyles, Group, Image, Stack, TextInput, Title } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user";
@@ -31,7 +31,10 @@ export function Home(){
     };
     return (
         <form onSubmit={form.onSubmit((values) => handleClick(values))}>
-        <Stack mt = {100}>
+        <Stack mt = {50}>
+        <Center>
+        <Image height = {160} width = {300} src="logo.png"></Image>
+        </Center>
         <Center>
         <Title className = {classes.title}>
             hoot
