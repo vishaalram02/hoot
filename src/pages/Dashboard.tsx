@@ -89,7 +89,7 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     const addTask = (task: {name: string; desc: string, start: string, end: string, start_task: string, end_task: string, start_loc: google.maps.LatLngLiteral, end_loc: google.maps.LatLngLiteral, id: string, status : string, claimedby: string}) => {
         data.push(task);
     }
-    const tasks = <Tasks setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
+    const tasks = <Tasks setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask}></Tasks>;
     const newtask = <NewTask claimTasks = {claimTasks} addTask = {addTask}></NewTask>;
     const routeinfo = <RouteInfo data = {data.filter((item) => (item.status == "claimed" && item.claimedby == name))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;

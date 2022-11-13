@@ -2,6 +2,7 @@ import {Center, createStyles, Stack} from "@mantine/core";
 import { RouteRender } from "./RouteRender";
 import { Task } from "./SelectTable";
 import { usePath } from "../hooks/path";
+import { Navigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
     block: {

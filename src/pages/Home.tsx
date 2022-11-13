@@ -1,10 +1,8 @@
-import { AppShell, Button, Center, createStyles, Group, Stack, TextInput, Title } from "@mantine/core";
+import { Button, Center, createStyles, Group, Stack, TextInput, Title } from "@mantine/core";
 import { useForm } from '@mantine/form';
-import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user";
 import { IconLogin } from "@tabler/icons";
-import { ClassNames } from "@emotion/react";
 
 const useStyles = createStyles((theme) => ({
     title: {
@@ -18,8 +16,6 @@ const useStyles = createStyles((theme) => ({
 export function Home(){
     const navigate = useNavigate();
     const setUserName = useUser(store => store.setUserName);
-    const name = useUser(store => store.userName);
-    const [submittedValues, setSubmittedValues] = useState('');
     const {classes} = useStyles();
     const form = useForm({
         initialValues: {
