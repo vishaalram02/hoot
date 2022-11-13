@@ -1,4 +1,4 @@
-import { AppShell, Button, Header, Stack } from "@mantine/core";
+import { AppShell, Button, Group, Header, Stack } from "@mantine/core";
 import { HeaderSimple} from "../components/Header";
 import { Tasks } from "./Tasks";
 import { NewTask } from "./NewTask";
@@ -34,10 +34,15 @@ export function Dashboard(){
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];
     return (
-        <Stack align="center" mt={50}>
+        <Stack>
+            <Group>
+            <Button type="submit">Logout</Button>
+            </Group>
+            <Stack align = "center" mt = {50}>
             <HeaderSimple links = {[{link: "tasks", label: "Tasks"}, {link: "newtask", label: "Create Task"}, {link: "route", label: "Route"}, {link: "mytasks", label: "My Tasks"}] } setFunc ={setPage} >
             </HeaderSimple>
             {display}
+            </Stack>
         </Stack>
     )
 }
