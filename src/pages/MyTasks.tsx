@@ -2,6 +2,7 @@ import { AppShell, Button, createStyles, Header } from "@mantine/core";
 import { useState } from "react";
 import { Preview } from "../components/RoutePreview";
 import {TableSelection, TableSelectionProps} from "../components/SelectTable";
+import { useUser } from '../hooks/user';
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -29,7 +30,8 @@ interface MyTaskProps {
 }
 
 export function MyTasks({data}: MyTaskProps){
-    const selectTable = <TableSelection data = {data.filter((item) => (item.name === "Daniel Hong"))} selection = {[]} setSelection = {Function}></TableSelection>;
+    const name = useUser(store => store.userName);
+    const selectTable = <TableSelection data = {data.filter((item) => (item.name === name))} selection = {[]} setSelection = {Function}></TableSelection>;
     return (
         <div>
             {selectTable}
