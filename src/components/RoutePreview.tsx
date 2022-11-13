@@ -1,6 +1,7 @@
 import {Center, createStyles, Stack} from "@mantine/core";
 import { RouteRender } from "./RouteRender";
 import { Task } from "./SelectTable";
+import { usePath } from "../hooks/path";
 
 const useStyles = createStyles((theme) => ({
     block: {
@@ -35,14 +36,16 @@ interface PreviewProps {
     setDirData: Function;
 }
 
-export function Preview({claimTasks, data, setPopUp, setDirData}: PreviewProps){
+export function Preview({ claimTasks, data, setPopUp, setDirData}: PreviewProps){
+    const clear = usePath((store) => store.clear);
     const { classes, cx } = useStyles();
     return (
         <Stack align = "center" className={cx(classes.block)}>
-            <RouteRender setDirData = {setDirData} origin = {{lat: 42.35977,lng: -71.09491}}  data = {data}></RouteRender>
+            <RouteRender preview={true} containerStyle = {{width: '100%', height: '400px'}} setDirData = {setDirData} origin = {{lat: 42.35977,lng: -71.09491}}  data = {data}></RouteRender>
             <a
             className={cx(classes.link)}
             onClick={(event) => {
+                clear();
                 claimTasks();
             }}
             >

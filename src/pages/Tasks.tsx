@@ -34,7 +34,7 @@ interface TaskProps {
     setDirData: Function;
 }
 
-export function Tasks({claimTasks, data, selection, setSelection, setDirData}: TaskProps){
+export function Tasks({ claimTasks, data, selection, setSelection, setDirData}: TaskProps){
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
     const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
