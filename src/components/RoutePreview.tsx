@@ -41,7 +41,7 @@ export function Preview({claimTasks, data, setPopUp}: PreviewProps){
             <a
             className={cx(classes.link)}
             onClick={(event) => {
-                claimTasks(["2"]);
+                claimTasks();
             }}
             >
             Claim Tasks

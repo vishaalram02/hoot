@@ -1,8 +1,8 @@
 import { AppShell, Button, createStyles, Header } from "@mantine/core";
 import { defaultShouldCreate } from "@mantine/core/lib/Select/Select";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Preview } from "../components/RoutePreview";
-import {TableSelection, TableSelectionProps} from "../components/SelectTable";
+import {TableSelection} from "../components/SelectTable";
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -38,6 +38,9 @@ export function Tasks({claimTasks, data, selection, setSelection}: TaskProps){
     const [popUp, setPopUp] = useState(false);
     const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
     const preview = popUp ? <Preview claimTasks = {claimTasks} data = {data.filter((item) => (item))} setPopUp = {setPopUp}></Preview> : <></>;
+    useEffect(() => {
+        setPopUp(false);
+    }, [selection, data]);
     return (
         <div>
             {preview}

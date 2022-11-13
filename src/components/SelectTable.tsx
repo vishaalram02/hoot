@@ -24,7 +24,7 @@ export function TableSelection({ data, selection, setSelection}: TableSelectionP
   const toggleAll = () =>
     setSelection(selection.length === data.length ? [] : data.map((item) => item.id));
 
-  const rows = data.filter((task) => (task.status === "unclaimed")).map((item) => {
+  const rows = data.map((item) => {
     const selected = selection.includes(item.id);
     return (
       <tr key={item.id} className={cx({ [classes.rowSelected]: selected })}>
