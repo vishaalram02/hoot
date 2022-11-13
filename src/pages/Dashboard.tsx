@@ -11,8 +11,13 @@ import { IconChevronDown } from '@tabler/icons';
 
 import { Task } from "../components/SelectTable";
 const useStyles = createStyles((theme) => ({
+    header: {
+        backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+        borderBottom: 0,
+    },
+
     inner: {
-        height: 10,
+        height: 40,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -36,11 +41,11 @@ const useStyles = createStyles((theme) => ({
     padding: '8px 12px',
     borderRadius: theme.radius.sm,
     textDecoration: 'none',
-    color: theme.colors.gray[7],
+    color: theme.white,
     fontSize: theme.fontSizes.sm,
     fontWeight: 700,
     '&:hover': {
-      backgroundColor: theme.colors.gray[0],
+      backgroundColor: theme.colors.blue[5],
     },
   },
 
@@ -128,8 +133,8 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     });
 
     return (
-        <Stack mt = {20}>
-        <Header height={30}>
+        <Stack>
+        <Header height={40} className = {classes.header}>
         <Container className={classes.inner} fluid>
             <Group>
 
