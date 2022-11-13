@@ -1,8 +1,7 @@
-import {createStyles} from "@mantine/core";
+import {Center, createStyles, Stack} from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
     block: {
-        display: 'block',
         height: 300,
         outlineWidth: 'medium',
         outlineColor: 'white',
@@ -36,7 +35,7 @@ interface PreviewProps {
 export function Preview({claimTasks, data, setPopUp}: PreviewProps){
     const { classes, cx } = useStyles();
     return (
-        <div className={cx(classes.block)}>
+        <Stack align = "center" className={cx(classes.block)}>
             Hi this is a preview
             <a
             className={cx(classes.link)}
@@ -54,6 +53,6 @@ export function Preview({claimTasks, data, setPopUp}: PreviewProps){
             >
             Close Preview
             </a>
-        </div>
+        </Stack>
     )
 }

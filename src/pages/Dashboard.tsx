@@ -14,7 +14,9 @@ export function Dashboard(){
         { avatar: "string", name: "Daniel Hong", desc: "snak", start: "nv", end: "new", id: "3", status : "claimed"},
         { avatar: "string", name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", id: "4", status : "unclaimed"},
     ]);
-    const [selection, setSelection] = useState(['1']);
+    const [selection, setSelection] = useState([]);
+
+    console.log(data);
     const claimTasks = () => {
         setData(data.map((task) => {
             if(selection.filter((item) => (item === task.id)).length > 0){
