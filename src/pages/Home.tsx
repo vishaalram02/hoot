@@ -14,6 +14,9 @@ export function Home(){
         initialValues: {
             username: '',
         },
+        validate: {
+          username: (value) => (value.length < 1 ? 'Name cannot be empty' : null),  
+        },
     });
     const handleClick = (values: {username: string}) => {
         setUserName(values.username);
