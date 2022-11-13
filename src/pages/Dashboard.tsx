@@ -2,7 +2,7 @@ import { createStyles, Container, Group, Stack, Header, Image, Menu, Center, Bur
 import { Tasks } from "./Tasks";
 import { NewTask } from "./NewTask";
 import { RouteInfo } from "./RouteInfo";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MyTasks } from "./MyTasks";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user";
@@ -71,6 +71,7 @@ interface HeaderSearchProps {
 }
 
 export function Dashboard({ links, data, setData }: HeaderSearchProps) {
+    const name = useUser(store => store.userName);
     const [dirData, setDirData] = useState<google.maps.DirectionsResult | undefined>(undefined);
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
@@ -80,6 +81,7 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
         setData(data.map((task) => {
             if(selection.filter((item) => (item === task.id)).length > 0){
                 task.status = "claimed";
+                task.claimedby = name;
             }
             return task;
         }));
@@ -87,23 +89,28 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     const addTask = (task: {name: string; desc: string, start: string, end: string, start_task: string, end_task: string, start_loc: google.maps.LatLngLiteral, end_loc: google.maps.LatLngLiteral, id: string, status : string, claimedby: string}) => {
         data.push(task);
     }
-    const tasks = <Tasks setPage = {setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
+    const tasks = <Tasks setPage = {setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask}></Tasks>;
     const newtask = <NewTask claimTasks = {claimTasks} addTask = {addTask}></NewTask>;
-    const routeinfo = <RouteInfo setData = {setData} setPage = {setPage} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
+    const routeinfo = <RouteInfo setPage = {setPage} setData = {setData} data = {data.filter((item) => (item.status == "claimed" && item.claimedby == name))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const navigate = useNavigate();
-    const name = useUser(store => store.userName);
+    const setName = useUser(store => store.setUserName);
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];
     const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item onClick={() => handleSubClick(item.link)} key={item.link}>{item.label}</Menu.Item>
     ));
+    useEffect(() => {
+        if (name.length===0) {
+            setName("Default");
+        }
+    }, []);
     const handleClick = (link: string) => {
         if (link==='username'){
             return;
         }
-        else if (link==='route' && data.filter((item) => (selection.filter((id) => (item.id === id && item.status==="claimed")).length > 0)).length === 0){
-            setPage('tasks');
+        else if (link==='route' && data.filter((item) => (item.status === "claimed"  && item.claimedby === name)).length === 0){
+            
         }
         else {
             setPage(link);

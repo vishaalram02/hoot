@@ -2,6 +2,7 @@ import {Center, createStyles, Stack} from "@mantine/core";
 import { RouteRender } from "./RouteRender";
 import { Task } from "./SelectTable";
 import { usePath } from "../hooks/path";
+import { Navigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
     block: {
@@ -34,10 +35,11 @@ interface PreviewProps {
     data: Task[];
     setPopUp: Function;
     setDirData: Function;
+    setSelection: Function;
     setPage: Function;
 }
 
-export function Preview({ setPage, claimTasks, data, setPopUp, setDirData}: PreviewProps){
+export function Preview({ setPage, claimTasks, data, setPopUp, setDirData, setSelection}: PreviewProps){
     const clear = usePath((store) => store.clear);
     const { classes, cx } = useStyles();
     if(data.length === 0){
@@ -51,6 +53,7 @@ export function Preview({ setPage, claimTasks, data, setPopUp, setDirData}: Prev
             onClick={(event) => {
                 claimTasks();
                 setPage("route");
+                setSelection([]);
             }}
             >
             Claim Tasks

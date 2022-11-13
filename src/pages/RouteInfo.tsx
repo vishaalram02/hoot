@@ -14,7 +14,7 @@ interface RouteInfoProps {
 export function RouteInfo({ setData, setPage, dirData, data, setDirData} : RouteInfoProps){
     const [labels,task,start,clear] = usePath((store) => [store.labels, store.task, store.start,store.clear]); 
     const name = useUser((store) => store.userName);
-    
+
     const handleComplete = () => {
         clear();
         setPage("tasks");
@@ -24,6 +24,7 @@ export function RouteInfo({ setData, setPage, dirData, data, setDirData} : Route
             }
             return task;
         }));
+        console.log(data);
     };
 
     if(labels.length*task.length*start.length == 0){

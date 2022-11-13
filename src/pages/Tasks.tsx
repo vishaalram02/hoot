@@ -2,6 +2,7 @@ import { AppShell, Button, createStyles, Header } from "@mantine/core";
 import { defaultShouldCreate } from "@mantine/core/lib/Select/Select";
 import { useState , useEffect} from "react";
 import { Preview } from "../components/RoutePreview";
+import { useUser } from "../hooks/user";
 import {TableSelection, Task} from "../components/SelectTable";
 
 const useStyles = createStyles((theme) => ({
@@ -36,13 +37,14 @@ interface TaskProps {
 }
 
 export function Tasks({ setPage, claimTasks, data, selection, setSelection, setDirData}: TaskProps){
+    const name = useUser(store => store.userName);
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
     const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
     const preview = () => {
         if(!popUp) return <></> ;
         try{
-            return <Preview setPage={setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview>
+            return <Preview setPage = {setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0) || (item.status == "claimed" && item.claimedby == name))} setSelection = {setSelection} setPopUp = {setPopUp}></Preview>
         } catch{
             return <></>;
         }
