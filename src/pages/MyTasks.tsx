@@ -1,7 +1,7 @@
 import { AppShell, Button, createStyles, Header } from "@mantine/core";
 import { useState } from "react";
 import { Preview } from "../components/RoutePreview";
-import {TableSelection, TableSelectionProps} from "../components/SelectTable";
+import {TableSelection, Task} from "../components/SelectTable";
 import { useUser } from '../hooks/user';
 
 const useStyles = createStyles((theme) => ({
@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => ({
   }));
 
 interface MyTaskProps {
-    data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
+    data: Task[];
 }
 
 export function MyTasks({data}: MyTaskProps){

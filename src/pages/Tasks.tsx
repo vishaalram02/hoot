@@ -2,7 +2,7 @@ import { AppShell, Button, createStyles, Header } from "@mantine/core";
 import { defaultShouldCreate } from "@mantine/core/lib/Select/Select";
 import { useState , useEffect} from "react";
 import { Preview } from "../components/RoutePreview";
-import {TableSelection} from "../components/SelectTable";
+import {TableSelection, Task} from "../components/SelectTable";
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -29,7 +29,7 @@ interface TaskProps {
     claimTasks: Function;
     selection: string[];
     setSelection: Function;
-    data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
+    data: Task[];
     addTask: Function;
 }
 

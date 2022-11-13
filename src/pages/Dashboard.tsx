@@ -10,9 +10,9 @@ import { MyTasks } from "./MyTasks";
 export function Dashboard(){
     const [page, setPage] = useState("tasks");
     const [data, setData] = useState([
-        { avatar: "string", name: "Andrew Huang", desc: "food", start: "simmon", end: "nv", id: "2", status : "unclaimed"},
-        { avatar: "string", name: "Daniel Hong", desc: "snak", start: "nv", end: "new", id: "3", status : "claimed"},
-        { avatar: "string", name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", id: "4", status : "unclaimed"},
+        {name: "Andrew Huang", desc: "food", start: "simmon", end: "nv", start_task: "be good", end_task: "random", claimedby: "bleh", id: "2", status : "unclaimed"},
+        {name: "Daniel Hong", desc: "snak", start: "nv", end: "new", start_task: "be good", end_task: "random", claimedby: "bleh", id: "3", status : "claimed"},
+        {name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", start_task: "be good", end_task: "random", claimedby: "bleh", id: "4", status : "unclaimed"},
     ]);
     const [selection, setSelection] = useState([]);
 
@@ -25,11 +25,11 @@ export function Dashboard(){
             return task;
         }));
     }
-    const addTask = (task: {avatar: string; name: string; desc: string; start: string, end: string; id: string; status: string;}) => {
+    const addTask = (task: {name: string; desc: string, start: string, end: string, start_task: string, end_task: string, id: string, status : string, claimedby: string}) => {
         data.push(task);
     }
     const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
-    const newtask = <NewTask claimTasks = {claimTasks} data = {data} addTask = {addTask}></NewTask>;
+    const newtask = <NewTask claimTasks = {claimTasks} addTask = {addTask}></NewTask>;
     const routeinfo = <RouteInfo></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];

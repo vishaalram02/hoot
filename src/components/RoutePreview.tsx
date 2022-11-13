@@ -1,4 +1,5 @@
 import {Center, createStyles, Stack} from "@mantine/core";
+import { Task } from "./SelectTable";
 
 const useStyles = createStyles((theme) => ({
     block: {
@@ -28,7 +29,7 @@ const useStyles = createStyles((theme) => ({
 
 interface PreviewProps {
     claimTasks: Function;
-    data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
+    data: Task[];
     setPopUp: Function;
 }
 

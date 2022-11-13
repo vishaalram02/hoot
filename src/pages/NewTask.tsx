@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { useUser } from '../hooks/user';
+import { Task } from "../components/SelectTable";
 const useStyles = createStyles((theme) => ({
     root: {
       position: 'relative',
@@ -26,15 +27,15 @@ const useStyles = createStyles((theme) => ({
   }));
 interface NewTaskProps {
     claimTasks: Function;
-    data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
     addTask: Function;
 }
-export function NewTask({claimTasks, data, addTask}: NewTaskProps){
+export function NewTask({claimTasks, addTask}: NewTaskProps){
     const name = useUser(store => store.userName);
     const { classes } = useStyles();
     const [submittedValues, setSubmittedValues] = useState('');
     const form = useForm({
         initialValues: {
+            desc: '',
             start: '',
             end: '',
             start_task: '',
@@ -44,12 +45,18 @@ export function NewTask({claimTasks, data, addTask}: NewTaskProps){
     useEffect(() => {
         console.log(name);
     }, [name]);
-    const handleClick = (values: { start: any; end: any; start_task: any; end_task: any; }) => {
-        addTask({avatar: "", name: name, desc: values.start_task+", "+values.end_task, start: values.start, end: values.end, id: randomId(), status: "unclaimed"});
+    const handleClick = (values: { desc: any; start: any; end: any; start_task: any; end_task: any; }) => {
+        addTask({name: name, desc: values.desc, start: values.start, end: values.end, id: randomId(), status: "unclaimed", start_task: values.start_task, end_task: values.end_task, claimedby: ""});
         form.reset();
     };
     return (
         <form onSubmit={form.onSubmit((values) => handleClick(values))}>
+        <TextInput
+            label = "Summary (5 words or less)"
+            placeholder = "submit math pset"
+            classNames = {classes}
+            {...form.getInputProps('desc')}
+        />
         <TextInput
             label = "Start location"
             placeholder = "Maseeh Hall"

@@ -10,10 +10,22 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export interface TableSelectionProps {
+export interface Task {
+  name: string;
+  desc: string;
+  start: string;
+  end: string;
+  start_task: string;
+  end_task: string;
+  id: string;
+  status : string;
+  claimedby: string;
+}
+
+interface TableSelectionProps {
   selection: string[];
   setSelection: Function;
-  data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
+  data: Task[];
 }
 
 export function TableSelection({ data, selection, setSelection}: TableSelectionProps) {
@@ -37,7 +49,7 @@ export function TableSelection({ data, selection, setSelection}: TableSelectionP
         </td>
         <td>
           <Group spacing="sm">
-            <Avatar size={26} src={item.avatar} radius={26} />
+            <Avatar size={26} radius={26} />
             <Text size="sm" weight={500}>
               {item.name}
             </Text>
