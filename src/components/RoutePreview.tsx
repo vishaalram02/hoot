@@ -62,6 +62,7 @@ export function Preview({ setPage, claimTasks, data, setPopUp, setDirData, setSe
             className={cx(classes.link)}
             onClick={(event) => {
                 setPopUp(false);
+                clear();
             }}
             >
             Close Preview
