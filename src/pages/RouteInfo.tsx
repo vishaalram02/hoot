@@ -1,22 +1,41 @@
-import { AppShell, Button, Header, Table, Group, Text} from "@mantine/core";
+import { AppShell, Button, Header, Table, Group, Text, Loader} from "@mantine/core";
 import { RouteRender } from "../components/RouteRender";
 import { Task } from '../components/SelectTable';
 import { usePath } from '../hooks/path';
+import { useUser } from '../hooks/user';
 
 interface RouteInfoProps {
     dirData : google.maps.DirectionsResult | undefined, 
     setDirData: Function,
     data : Task[], 
+    setPage: Function,
+    setData: Function,
 }
-export function RouteInfo({ dirData, data, setDirData} : RouteInfoProps){
-    const [labels,task,start] = usePath((store) => [store.labels, store.task, store.start]); 
-    console.log(labels);
-    console.log(task);
-    console.log(data);
+export function RouteInfo({ setData, setPage, dirData, data, setDirData} : RouteInfoProps){
+    const [labels,task,start,clear] = usePath((store) => [store.labels, store.task, store.start,store.clear]); 
+    const name = useUser((store) => store.userName);
+    
+    const handleComplete = () => {
+        clear();
+        setPage("tasks");
+        setData(data.map((task) => {
+            if(task.status == "claimed" && task.claimedby == name){
+                task.status = "completed";
+            }
+            return task;
+        }));
+    };
+
+    if(labels.length*task.length*start.length == 0){
+        return (
+            <Loader />
+        )
+    }
     return (
         <div style={{width: '100%', height: '100%'}}>
             <Group position="apart" grow>
                 <RouteRender preview = {false} containerStyle = {{width: '40%', height: '500px'}} setDirData = {setDirData} origin = {{lat: 42.35977,lng: -71.09491}}  data = {data}></RouteRender>
+                <div>
                 <Table>
                     <thead>
                         <tr>
@@ -37,7 +56,10 @@ export function RouteInfo({ dirData, data, setDirData} : RouteInfoProps){
                         ))}
                     </tbody>
                 </Table>
+                <Button onClick={handleComplete}>Complete</Button>
+                </div>
             </Group>
+            
           
         </div>
        

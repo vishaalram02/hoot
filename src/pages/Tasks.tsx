@@ -32,16 +32,17 @@ interface TaskProps {
     data: Task[];
     addTask: Function;
     setDirData: Function;
+    setPage: Function;
 }
 
-export function Tasks({ claimTasks, data, selection, setSelection, setDirData}: TaskProps){
+export function Tasks({ setPage, claimTasks, data, selection, setSelection, setDirData}: TaskProps){
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
     const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
     const preview = () => {
         if(!popUp) return <></> ;
         try{
-            return <Preview setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview>
+            return <Preview setPage={setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview>
         } catch{
             return <></>;
         }

@@ -34,9 +34,10 @@ interface PreviewProps {
     data: Task[];
     setPopUp: Function;
     setDirData: Function;
+    setPage: Function;
 }
 
-export function Preview({ claimTasks, data, setPopUp, setDirData}: PreviewProps){
+export function Preview({ setPage, claimTasks, data, setPopUp, setDirData}: PreviewProps){
     const clear = usePath((store) => store.clear);
     const { classes, cx } = useStyles();
     if(data.length === 0){
@@ -48,8 +49,8 @@ export function Preview({ claimTasks, data, setPopUp, setDirData}: PreviewProps)
             <a
             className={cx(classes.link)}
             onClick={(event) => {
-                clear();
                 claimTasks();
+                setPage("route");
             }}
             >
             Claim Tasks

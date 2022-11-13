@@ -12,7 +12,6 @@ export default function App() {
     {name: "Daniel Hong", desc: "snak", start: "New Vassar", end: "New House", start_task: "be good", end_task: "random", start_loc: {lat: 42.3590, lng: -71.0976}, end_loc: {lat: 42.3551, lng: -71.1006}, claimedby: "bleh", id: "3", status : "claimed"},
     {name: "Andrew Huang", desc: "asdf", start: "Hayden Library", end: "Maseeh Hall", start_task: "be good", end_task: "random", start_loc: {lat: 42.3589, lng: -71.0895}, end_loc: {lat: 42.3578, lng: -71.0935}, claimedby: "bleh", id: "4", status : "unclaimed"},
   ]);
-  console.log(data);
   return (
     <MantineProvider theme = {{colorScheme: "light"}} withGlobalStyles withNormalizeCSS>
     <Router>
