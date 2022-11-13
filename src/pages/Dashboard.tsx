@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user";
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons';
-
 import { Task } from "../components/SelectTable";
-import { theme } from "../theme";
+
 const useStyles = createStyles((theme) => ({
     header: {
         backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
