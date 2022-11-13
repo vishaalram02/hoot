@@ -1,8 +1,9 @@
 import { AppShell, Button, Group, Header, createStyles, TextInput } from "@mantine/core";
 import App from "../App";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
+import { useUser } from '../hooks/user';
 const useStyles = createStyles((theme) => ({
     root: {
       position: 'relative',
@@ -29,6 +30,7 @@ interface NewTaskProps {
     addTask: Function;
 }
 export function NewTask({claimTasks, data, addTask}: NewTaskProps){
+    const name = useUser(store => store.userName);
     const { classes } = useStyles();
     const [submittedValues, setSubmittedValues] = useState('');
     const form = useForm({
@@ -39,8 +41,11 @@ export function NewTask({claimTasks, data, addTask}: NewTaskProps){
             end_task: '',
         },
     });
+    useEffect(() => {
+        console.log(name);
+    }, [name]);
     const handleClick = (values: { start: any; end: any; start_task: any; end_task: any; }) => {
-        addTask({avatar: "", name: "Andrew", desc: values.start_task+", "+values.end_task, start: values.start, end: values.end, id: randomId(), status: "unclaimed"});
+        addTask({avatar: "", name: name, desc: values.start_task+", "+values.end_task, start: values.start, end: values.end, id: randomId(), status: "unclaimed"});
         form.reset();
     };
     return (

@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { MyTasks } from "./MyTasks";
 
 // status can be unclaimed, claimed, or finished. Only unclaimed tasks are shown. When finished tasks are confirmed, delete.
-
 export function Dashboard(){
     const [page, setPage] = useState("tasks");
     const [data, setData] = useState([
@@ -16,8 +15,6 @@ export function Dashboard(){
         { avatar: "string", name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", id: "4", status : "unclaimed"},
     ]);
     const [selection, setSelection] = useState(['1']);
-
-    console.log(data);
     const claimTasks = () => {
         setData(data.map((task) => {
             if(selection.filter((item) => (item === task.id)).length > 0){
@@ -29,7 +26,7 @@ export function Dashboard(){
     const addTask = (task: {avatar: string; name: string; desc: string; start: string, end: string; id: string; status: string;}) => {
         data.push(task);
     }
-    const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask}></Tasks>;
+    const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
     const newtask = <NewTask claimTasks = {claimTasks} data = {data} addTask = {addTask}></NewTask>;
     const routeinfo = <RouteInfo></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
