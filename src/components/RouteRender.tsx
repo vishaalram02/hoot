@@ -25,7 +25,7 @@ export function RouteRender (props: RouteRenderProps) {
         googleMapsApiKey: googleMapsApiKey,
         libraries: ['places'],
     });
-    const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
+    const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | undefined>(undefined);
 
     function permute(permutation : number[]) {
         var length = permutation.length,
@@ -79,13 +79,14 @@ export function RouteRender (props: RouteRenderProps) {
             }
         })
         return best;
+        
     }
 
     async function calculateRoute(){
         const directionsService = new google.maps.DirectionsService();
         let waypoints : google.maps.DirectionsWaypoint[] = [];
         let visited = new Array(props.data.length).fill(false);
-        order.forEach((i: number, index: number) => {
+        optOrder().forEach((i: number, index: number) => {
             let cur = visited[i] ? props.data[i].start_loc : props.data[i].end_loc;
             waypoints.push({location: cur});
             visited[i] = true;
@@ -95,15 +96,17 @@ export function RouteRender (props: RouteRenderProps) {
             destination: props.origin, 
             waypoints: waypoints,
             travelMode: google.maps.TravelMode.WALKING,
-        }).then((results) => setDirectionsResponse(results));
+        }).then((results) => {
+            setDirectionsResponse(results);
+         });
     };
 
-    
+    useEffect(() => {
+    }, [directionsResponse])
     useEffect(()=>{
         if(isLoaded){
             setOrder(optOrder());
-            calculateRoute().then(() => console.log(directionsResponse));
-            
+            calculateRoute();
         }
     }, [isLoaded]);
 
@@ -121,6 +124,7 @@ export function RouteRender (props: RouteRenderProps) {
             {markers.map((i : any, index : number) => (<Marker key = {index} label = {i.name} position={i.position} />))}
         </>
     };
+   
     if(directionsResponse && isLoaded){
         return(
             <GoogleMap
@@ -128,8 +132,8 @@ export function RouteRender (props: RouteRenderProps) {
                 zoom = {1}
                 mapContainerStyle = {containerStyle}
                 onLoad = {map => setMap(map)}
-            >
-                <DirectionsRenderer options={{markerOptions: {icon: "asdf"}}} directions={directionsResponse}/>
+            >   
+                <DirectionsRenderer options={{markerOptions: {icon: "asdf"}}} directions={directionsResponse} />
                 {getMarkers()}
             </GoogleMap>
         )

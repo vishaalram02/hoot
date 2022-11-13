@@ -29,7 +29,7 @@ export function Dashboard({data, setData}:DashboardProps){
             return task;
         }));
     }
-    const addTask = (task: {name: string; desc: string, start: string, end: string, start_task: string, end_task: string, start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, id: string, status : string, claimedby: string}) => {
+    const addTask = (task: {name: string; desc: string, start: string, end: string, start_task: string, end_task: string, start_loc: google.maps.LatLngLiteral, end_loc: google.maps.LatLngLiteral, id: string, status : string, claimedby: string}) => {
         data.push(task);
     }
     const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
