@@ -38,13 +38,20 @@ export function Tasks({claimTasks, data, selection, setSelection, setDirData}: T
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
     const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
-    const preview = popUp ? <Preview setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview> : <></>;
+    const preview = () => {
+        if(!popUp) return <></> ;
+        try{
+            return <Preview setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview>
+        } catch{
+            return <></>;
+        }
+    };
     useEffect(() => {
         setPopUp(false);
     }, [selection, data]);
     return (
         <div>
-            {preview}
+            {preview()}
             <a
             className={cx(classes.link)}
             onClick={(event) => {

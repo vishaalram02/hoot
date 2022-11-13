@@ -37,6 +37,9 @@ interface PreviewProps {
 
 export function Preview({claimTasks, data, setPopUp, setDirData}: PreviewProps){
     const { classes, cx } = useStyles();
+    if(data.length === 0){
+        return <></>;
+    } else{
     return (
         <Stack align = "center" className={cx(classes.block)}>
             <RouteRender setDirData = {setDirData} origin = {{lat: 42.35977,lng: -71.09491}}  data = {data}></RouteRender>
@@ -58,4 +61,5 @@ export function Preview({claimTasks, data, setPopUp, setDirData}: PreviewProps){
             </a>
         </Stack>
     )
+    }
 }
