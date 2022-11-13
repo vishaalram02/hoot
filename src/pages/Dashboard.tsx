@@ -90,7 +90,7 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     }
     const tasks = <Tasks setPage = {setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask}></Tasks>;
     const newtask = <NewTask claimTasks = {claimTasks} addTask = {addTask}></NewTask>;
-    const routeinfo = <RouteInfo setPage = {setPage} setData = {setData} data = {data.filter((item) => (item.status == "claimed" && item.claimedby == name))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
+    const routeinfo = <RouteInfo fulldata = {data} setPage = {setPage} setData = {setData} data = {data.filter((item) => (item.status == "claimed" && item.claimedby == name))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const navigate = useNavigate();
     const setName = useUser(store => store.setUserName);

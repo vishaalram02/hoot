@@ -7,24 +7,25 @@ import { useUser } from '../hooks/user';
 interface RouteInfoProps {
     dirData : google.maps.DirectionsResult | undefined, 
     setDirData: Function,
+    fulldata: Task[],
     data : Task[], 
     setPage: Function,
     setData: Function,
 }
-export function RouteInfo({ setData, setPage, dirData, data, setDirData} : RouteInfoProps){
+export function RouteInfo({ setData, setPage, dirData, fulldata, data, setDirData} : RouteInfoProps){
     const [labels,task,start,clear] = usePath((store) => [store.labels, store.task, store.start,store.clear]); 
     const name = useUser((store) => store.userName);
 
     const handleComplete = () => {
         clear();
         setPage("tasks");
-        setData(data.map((task) => {
+        setData(fulldata.map((task) => {
             if(task.status == "claimed" && task.claimedby == name){
                 task.status = "completed";
             }
             return task;
         }));
-        console.log(data);
+        console.log(fulldata);
     };
 
     if(labels.length*task.length*start.length == 0){
