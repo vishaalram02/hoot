@@ -15,7 +15,7 @@ export function Home(){
             username: '',
         },
         validate: {
-          username: (value) => (value.length < 1 ? 'Name cannot be empty' : null),  
+          username: (value) => (value.length < 3 ? 'Username is not long enough' : null),  
         },
     });
     const handleClick = (values: {username: string}) => {

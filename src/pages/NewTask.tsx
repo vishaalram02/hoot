@@ -41,10 +41,14 @@ export function NewTask({claimTasks, addTask}: NewTaskProps){
             start_task: '',
             end_task: '',
         },
+        validate: {
+            desc: (value) => (value.length < 1 ? 'Description cannot be empty' : null),
+            start: (value) => (value.length < 1 ? 'Starting location cannot be empty' : null),
+            start_task: (value) => (value.length < 1 ? 'Starting task description cannot be empty' : null),
+            end: (value) => (value.length < 1 ? 'Ending location cannot be empty' : null), 
+            end_task: (value) => (value.length < 1 ? 'Ending task description cannot be empty' : null),  
+        },
     });
-    useEffect(() => {
-        console.log(name);
-    }, [name]);
     const handleClick = (values: { desc: any; start: any; end: any; start_task: any; end_task: any; }) => {
         addTask({name: name, desc: values.desc, start: values.start, end: values.end, id: randomId(), status: "unclaimed", start_task: values.start_task, end_task: values.end_task, claimedby: ""});
         form.reset();
