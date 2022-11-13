@@ -24,27 +24,14 @@ const useStyles = createStyles((theme) => ({
     },
   }));
 
-interface TaskProps {
-    claimTasks: Function;
+interface MyTaskProps {
     data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
 }
 
-export function Tasks({claimTasks, data}: TaskProps){
-    const { classes, cx } = useStyles();
-    const [popUp, setPopUp] = useState(false);
-    const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed"))}></TableSelection>;
-    const preview = popUp ? <Preview claimTasks = {claimTasks} data = {data.filter((item) => (item))} setPopUp = {setPopUp}></Preview> : <></>;
+export function MyTasks({data}: MyTaskProps){
+    const selectTable = <TableSelection data = {data.filter((item) => (item.name === "Daniel Hong"))}></TableSelection>;
     return (
         <div>
-            {preview}
-            <a
-            className={cx(classes.link)}
-            onClick={(event) => {
-                setPopUp(true);
-            }}
-            >
-            Preview Route
-            </a>
             {selectTable}
         </div>
     )

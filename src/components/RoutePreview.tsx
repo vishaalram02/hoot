@@ -1,9 +1,12 @@
-import { AppShell, Button, createStyles, Header } from "@mantine/core";
-import { useState } from "react";
-import { Preview } from "../components/RoutePreview";
-import {TableSelection, TableSelectionProps} from "../components/SelectTable";
+import {createStyles} from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
+    block: {
+        display: 'block',
+        height: 300,
+        outlineWidth: 'medium',
+        outlineColor: 'white',
+    },
     link: {
       display: 'block',
       width: 200,
@@ -12,7 +15,7 @@ const useStyles = createStyles((theme) => ({
       padding: '8px 12px',
       borderRadius: theme.radius.sm,
       textDecoration: 'none',
-      fontSize: theme.fontSizes.lg,
+      fontSize: theme.fontSizes.sm,
       fontWeight: 500,
       backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
       color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
@@ -24,28 +27,33 @@ const useStyles = createStyles((theme) => ({
     },
   }));
 
-interface TaskProps {
+interface PreviewProps {
     claimTasks: Function;
     data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
+    setPopUp: Function;
 }
 
-export function Tasks({claimTasks, data}: TaskProps){
+export function Preview({claimTasks, data, setPopUp}: PreviewProps){
     const { classes, cx } = useStyles();
-    const [popUp, setPopUp] = useState(false);
-    const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed"))}></TableSelection>;
-    const preview = popUp ? <Preview claimTasks = {claimTasks} data = {data.filter((item) => (item))} setPopUp = {setPopUp}></Preview> : <></>;
     return (
-        <div>
-            {preview}
+        <div className={cx(classes.block)}>
+            Hi this is a preview
             <a
             className={cx(classes.link)}
             onClick={(event) => {
-                setPopUp(true);
+                claimTasks(["2"]);
             }}
             >
-            Preview Route
+            Claim Tasks
             </a>
-            {selectTable}
+            <a
+            className={cx(classes.link)}
+            onClick={(event) => {
+                setPopUp(false);
+            }}
+            >
+            Close Preview
+            </a>
         </div>
     )
 }
