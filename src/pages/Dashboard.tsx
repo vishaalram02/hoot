@@ -46,6 +46,7 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 700,
     '&:hover': {
       backgroundColor: theme.colors.blue[5],
+      cursor: 'pointer'
     },
   },
 
