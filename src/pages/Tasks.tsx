@@ -40,15 +40,16 @@ export function Tasks({ setPage, claimTasks, data, selection, setSelection, setD
     const name = useUser(store => store.userName);
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
-    const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
+    const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {popUp ? Function() : setSelection}></TableSelection>;
     const preview = () => {
-        if(!popUp) return <></> ;
-        try{
-            return <Preview setPage = {setPage} setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0) || (item.status == "claimed" && item.claimedby == name))} setSelection = {setSelection} setPopUp = {setPopUp}></Preview>
-        } catch{
-            return <></>;
-        }
-    };
+            return popUp ? (
+                <Preview 
+                setPage = {setPage} 
+                setDirData = {setDirData} 
+                claimTasks = {claimTasks} 
+                data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0) || (item.status == "claimed" && item.claimedby == name))} 
+                setSelection = {setSelection} setPopUp = {setPopUp}></Preview>) : (<></>);
+        };
     useEffect(() => {
         setPopUp(false);
     }, [selection, data]);
