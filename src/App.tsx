@@ -6,10 +6,6 @@ import { useState } from "react";
 import { useUser } from "./hooks/user";
 
 export default function App() {
-  let navigate = useNavigate();
-  function goHome() {
-    navigate("/home");
-  }
   const name = useUser(store => store.userName);
   const [data, setData] = useState([
     {name: "Andrew Huang", desc: "food", start: "Simmons Houuse", end: "New Vassar", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "2", status : "unclaimed"},
