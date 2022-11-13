@@ -56,6 +56,7 @@ interface HeaderSearchProps {
 }
 
 export function Dashboard({ links, data, setData }: HeaderSearchProps) {
+    const [dirData, setDirData] = useState<google.maps.DirectionsResult | undefined>(undefined);
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
     const [page, setPage] = useState("tasks");
@@ -71,9 +72,9 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     const addTask = (task: {name: string; desc: string, start: string, end: string, start_task: string, end_task: string, start_loc: google.maps.LatLngLiteral, end_loc: google.maps.LatLngLiteral, id: string, status : string, claimedby: string}) => {
         data.push(task);
     }
-    const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
+    const tasks = <Tasks setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
     const newtask = <NewTask claimTasks = {claimTasks} addTask = {addTask}></NewTask>;
-    const routeinfo = <RouteInfo></RouteInfo>;
+    const routeinfo = <RouteInfo data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const navigate = useNavigate();
     const name = useUser(store => store.userName);

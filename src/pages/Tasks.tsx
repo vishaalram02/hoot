@@ -31,13 +31,14 @@ interface TaskProps {
     setSelection: Function;
     data: Task[];
     addTask: Function;
+    setDirData: Function;
 }
 
-export function Tasks({claimTasks, data, selection, setSelection}: TaskProps){
+export function Tasks({claimTasks, data, selection, setSelection, setDirData}: TaskProps){
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
     const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
-    const preview = popUp ? <Preview claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview> : <></>;
+    const preview = popUp ? <Preview setDirData = {setDirData} claimTasks = {claimTasks} data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} setPopUp = {setPopUp}></Preview> : <></>;
     useEffect(() => {
         setPopUp(false);
     }, [selection, data]);

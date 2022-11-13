@@ -32,13 +32,14 @@ interface PreviewProps {
     claimTasks: Function;
     data: Task[];
     setPopUp: Function;
+    setDirData: Function;
 }
 
-export function Preview({claimTasks, data, setPopUp}: PreviewProps){
+export function Preview({claimTasks, data, setPopUp, setDirData}: PreviewProps){
     const { classes, cx } = useStyles();
     return (
         <Stack align = "center" className={cx(classes.block)}>
-            <RouteRender origin = {{lat: 42.35977,lng: -71.09491}}  data = {data}></RouteRender>
+            <RouteRender setDirData = {setDirData} origin = {{lat: 42.35977,lng: -71.09491}}  data = {data}></RouteRender>
             <a
             className={cx(classes.link)}
             onClick={(event) => {

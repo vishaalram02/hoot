@@ -7,6 +7,7 @@ import { Task } from "./SelectTable";
 export interface RouteRenderProps {
     origin: google.maps.LatLngLiteral,
     data: Task[],
+    setDirData: Function,
 }
 const containerStyle = {
     width: '100%',
@@ -97,11 +98,13 @@ export function RouteRender (props: RouteRenderProps) {
             waypoints: waypoints,
             travelMode: google.maps.TravelMode.WALKING,
         }).then((results) => {
+            props.setDirData(results);
             setDirectionsResponse(results);
          });
     };
 
     useEffect(() => {
+        console.log(directionsResponse);
     }, [directionsResponse])
     useEffect(()=>{
         if(isLoaded){
