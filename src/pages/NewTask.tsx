@@ -1,11 +1,10 @@
-import { AppShell, Button, Group, Header, createStyles, TextInput } from "@mantine/core";
-import App from "../App";
-import { useEffect, useState, useRef } from 'react';
+import { Button, Group, Space, createStyles, TextInput } from "@mantine/core";
+import { useState, useRef } from 'react';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { useUser } from '../hooks/user';
-import { Task } from "../components/SelectTable";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+
 const useStyles = createStyles((theme) => ({
     root: {
       position: 'relative',
@@ -53,25 +52,29 @@ export function NewTask({claimTasks, addTask}: NewTaskProps){
         },
         validate: {
             desc: (value) => (value.length < 1 ? 'Description cannot be empty' : null),
-            start: (value) => (value.length < 1 ? 'Starting location cannot be empty' : null),
+            start: (value) => (value.length < 1 ? 'Please enter a valid, non-empty location': null),
             start_task: (value) => (value.length < 1 ? 'Starting task description cannot be empty' : null),
-            end: (value) => (value.length < 1 ? 'Ending location cannot be empty' : null), 
+            end: (value) => (value.length < 1 ? 'Please enter a valid, non-empty location' : null), 
             end_task: (value) => (value.length < 1 ? 'Ending task description cannot be empty' : null),  
         },
     });
     const handleClick = (values: { desc: any; start: any; end: any; start_task: any; end_task: any; }) => {
         const start_loc = {lat: 0, lng: 0};
         const end_loc = {lat: 0, lng: 0};
-        if(auto?.getPlace().geometry?.location?.lat() && auto?.getPlace().geometry?.location?.lng()){
+        if(auto?.getPlace()?.geometry?.location?.lat() && auto?.getPlace()?.geometry?.location?.lng()){
           start_loc.lat = auto?.getPlace().geometry?.location?.lat() as number;
           start_loc.lng = auto?.getPlace().geometry?.location?.lng() as number;
-        }else{
+        } else{
+          values.start = "";
+          form.validate();
           return;
         }
-        if(buto?.getPlace().geometry?.location?.lat() && buto?.getPlace().geometry?.location?.lng()){
+        if(buto?.getPlace()?.geometry?.location?.lat() && buto?.getPlace()?.geometry?.location?.lng()){
           end_loc.lat = buto?.getPlace().geometry?.location?.lat() as number;
           end_loc.lng = buto?.getPlace().geometry?.location?.lng() as number;
         }else{
+          values.end = "";
+          form.validate();
           return;
         }
         addTask({name: name, desc: values.desc, start: values.start, end: values.end, id: randomId(), status: "unclaimed", start_task: values.start_task, end_task: values.end_task, claimedby: "", start_loc: start_loc, end_loc: end_loc});
@@ -96,7 +99,7 @@ export function NewTask({claimTasks, addTask}: NewTaskProps){
             classNames = {classes}
             {...form.getInputProps('desc')}
         />
-        
+        <Space h = "xs" />
         {isLoaded && (
         <Autocomplete onLoad={(a : any) => setAuto(a)} onPlaceChanged={autoPlace}>
         <TextInput
@@ -106,12 +109,14 @@ export function NewTask({claimTasks, addTask}: NewTaskProps){
             {...form.getInputProps('start')}
         />
         </Autocomplete>)}
+        <Space h = "xs" />
         <TextInput
             label = "Task at start location"
             placeholder = "Pick up homework"
             classNames = {classes}
             {...form.getInputProps('start_task')}
         />
+        <Space h = "xs" />
         {isLoaded && (
         <Autocomplete onLoad={(a : any) => setButo(a)} onPlaceChanged={butoPlace}>
         <TextInput
@@ -121,6 +126,7 @@ export function NewTask({claimTasks, addTask}: NewTaskProps){
             {...form.getInputProps('end')}
         />
         </Autocomplete>)}
+        <Space h = "xs" />
         <TextInput
             label = "Task at end location"
             placeholder = "Drop off homework"
