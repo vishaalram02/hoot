@@ -17,6 +17,8 @@ export interface Task {
   end: string;
   start_task: string;
   end_task: string;
+  start_loc: google.maps.LatLngLiteral;
+  end_loc: google.maps.LatLngLiteral;
   id: string;
   status : string;
   claimedby: string;

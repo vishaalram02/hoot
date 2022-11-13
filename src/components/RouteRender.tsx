@@ -1,12 +1,12 @@
 import { Loader } from "@mantine/core";
 import { Marker, GoogleMap, useJsApiLoader, DirectionsService, DirectionsRenderer} from '@react-google-maps/api/';
 import { useEffect, useState } from 'react';
+import { Task } from "./SelectTable";
 
 
 export interface RouteRenderProps {
     origin: google.maps.LatLngLiteral,
-    start: google.maps.LatLngLiteral[],
-    end: google.maps.LatLngLiteral[],
+    data: Task[],
 }
 const containerStyle = {
     width: '100%',
@@ -50,7 +50,7 @@ export function RouteRender (props: RouteRenderProps) {
       }
 
     const optOrder = () => {
-        let n = props.start.length;
+        let n = props.data.length;
         let cur : number[] = [];
         for(let i=0;i<n;++i){
             cur.push(i); cur.push(i);
@@ -66,7 +66,7 @@ export function RouteRender (props: RouteRenderProps) {
             let d = 0;
             let prev = props.origin;
             p.forEach((i : number, index : number) => {
-                let cur = visited[i] ? props.end[i] : props.start[i];
+                let cur = visited[i] ? props.data[i].start_loc : props.data[i].end_loc;
                 d += dist(prev, cur);
                 prev = cur;
                 visited[i] = true;
@@ -84,9 +84,9 @@ export function RouteRender (props: RouteRenderProps) {
     async function calculateRoute(){
         const directionsService = new google.maps.DirectionsService();
         let waypoints : google.maps.DirectionsWaypoint[] = [];
-        let visited = new Array(props.start.length).fill(false);
+        let visited = new Array(props.data.length).fill(false);
         order.forEach((i: number, index: number) => {
-            let cur = visited[i] ? props.end[i] : props.start[i];
+            let cur = visited[i] ? props.data[i].start_loc : props.data[i].end_loc;
             waypoints.push({location: cur});
             visited[i] = true;
         });
@@ -110,9 +110,9 @@ export function RouteRender (props: RouteRenderProps) {
     const getMarkers = () => {
         let markers : any[] = [{name: "H", position: props.origin}];
 
-        let visited = new Array(props.start.length).fill(false);
+        let visited = new Array(props.data.length).fill(false);
         order.forEach((i: number, index: number) => {
-            let cur = visited[i] ? props.end[i] : props.start[i];
+            let cur = visited[i] ? props.data[i].end_loc : props.data[i].start_loc;
             let name = (visited[i] ? "B" : "A") + String(i+1);
             markers.push({name: name, position: cur});
             visited[i] = true;
@@ -124,8 +124,8 @@ export function RouteRender (props: RouteRenderProps) {
     if(directionsResponse && isLoaded){
         return(
             <GoogleMap
-                center = {{lat: 42.35977,lng: -71.09491}}
-                zoom = {15}
+                center = {props.origin}
+                zoom = {1}
                 mapContainerStyle = {containerStyle}
                 onLoad = {map => setMap(map)}
             >
