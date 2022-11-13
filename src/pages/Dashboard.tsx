@@ -1,4 +1,4 @@
-import { createStyles, Container, Group, Stack, Header, Menu, Center, Burger } from "@mantine/core";
+import { createStyles, Container, Group, Stack, Header, Image, Menu, Center, Burger, Title} from "@mantine/core";
 import { Tasks } from "./Tasks";
 import { NewTask } from "./NewTask";
 import { RouteInfo } from "./RouteInfo";
@@ -10,6 +10,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons';
 
 import { Task } from "../components/SelectTable";
+import { theme } from "../theme";
 const useStyles = createStyles((theme) => ({
     header: {
         backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
@@ -17,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     inner: {
-        height: 40,
+        height: 60,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -34,18 +35,27 @@ const useStyles = createStyles((theme) => ({
       display: 'none',
     },
   },
-
+  title: {
+    color: theme.white,
+    fontWeight: 800,
+    fontSize: 40,
+    fontFamily: 'BlinkMacSystemFont',
+    '&:hover': {
+        cursor: "default",
+    },
+  },
   link: {
     display: 'block',
     lineHeight: 1,
-    padding: '8px 12px',
+    padding: '12px 16px',
     borderRadius: theme.radius.sm,
     textDecoration: 'none',
     color: theme.white,
-    fontSize: theme.fontSizes.sm,
-    fontWeight: 700,
+    fontSize: theme.fontSizes.md,
+    fontWeight: 600,
     '&:hover': {
       backgroundColor: theme.colors.blue[5],
+      cursor: 'pointer'
     },
   },
 
@@ -92,6 +102,9 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
         if (link==='username'){
             return;
         }
+        else if (link==='route' && data.filter((item) => (selection.filter((id) => (item.id === id && item.status==="claimed")).length > 0)).length === 0){
+            setPage('tasks');
+        }
         else {
             setPage(link);
         }
@@ -135,12 +148,13 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
 
     return (
         <Stack>
-        <Header height={40} className = {classes.header}>
+        <Header height={60} className = {classes.header}>
         <Container className={classes.inner} fluid>
-            <Group>
-
+            <Group spacing = {5}>
+            <Image width = {110} height = {60} src = {"logo.png"}></Image>
+            <Title className = {classes.title}>hoot</Title>
             </Group>
-            <Group spacing={5} className={classes.links} mr = {110}>
+            <Group spacing={5} className={classes.links}>
                 {items}
             </Group>
             <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
