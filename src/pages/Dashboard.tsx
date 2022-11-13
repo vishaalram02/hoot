@@ -5,6 +5,8 @@ import { NewTask } from "./NewTask";
 import { RouteInfo } from "./RouteInfo";
 import { useState } from 'react';
 import { MyTasks } from "./MyTasks";
+import { IconLogout } from "@tabler/icons";
+import { useNavigate } from "react-router-dom";
 
 // status can be unclaimed, claimed, or finished. Only unclaimed tasks are shown. When finished tasks are confirmed, delete.
 export function Dashboard(){
@@ -33,10 +35,11 @@ export function Dashboard(){
     const routeinfo = <RouteInfo></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];
+    const navigate = useNavigate();
     return (
         <Stack>
-            <Group>
-            <Button type="submit">Logout</Button>
+            <Group position = "right" mr = {50}>
+            <Button type="submit" leftIcon = {<IconLogout/>} onClick = {(event: any) => {navigate('/home');}}>Logout</Button>
             </Group>
             <Stack align = "center" mt = {50}>
             <HeaderSimple links = {[{link: "tasks", label: "Tasks"}, {link: "newtask", label: "Create Task"}, {link: "route", label: "Route"}, {link: "mytasks", label: "My Tasks"}] } setFunc ={setPage} >

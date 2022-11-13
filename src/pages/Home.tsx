@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user";
-
+import { IconLogin } from "@tabler/icons";
 
 export function Home(){
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ export function Home(){
         />
         </Center>
         <Group position="center" mt="md">
-          <Button mt = "md" type="submit">Login</Button>
+          <Button mt = "md" type="submit" rightIcon = {<IconLogin/>}>Login</Button>
         </Group>
       </form>
     )
