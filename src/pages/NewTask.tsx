@@ -2,6 +2,7 @@ import { AppShell, Button, Group, Header, createStyles, TextInput } from "@manti
 import App from "../App";
 import { useState } from 'react';
 import { useForm } from '@mantine/form';
+import { randomId } from '@mantine/hooks';
 const useStyles = createStyles((theme) => ({
     root: {
       position: 'relative',
@@ -39,7 +40,7 @@ export function NewTask({claimTasks, data, addTask}: NewTaskProps){
         },
     });
     const handleClick = (values: { start: any; end: any; start_task: any; end_task: any; }) => {
-        addTask({avatar: "", name: "Andrew", desc: values.start_task+", "+values.end_task, start: values.start, end: values.end, id: "", status: "unclaimed"});
+        addTask({avatar: "", name: "Andrew", desc: values.start_task+", "+values.end_task, start: values.start, end: values.end, id: randomId(), status: "unclaimed"});
         form.reset();
     };
     return (
