@@ -2,7 +2,7 @@ import { createStyles, Container, Group, Stack, Header, Image, Menu, Center, Bur
 import { Tasks } from "./Tasks";
 import { NewTask } from "./NewTask";
 import { RouteInfo } from "./RouteInfo";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MyTasks } from "./MyTasks";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user";
@@ -94,11 +94,17 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     const routeinfo = <RouteInfo data = {data.filter((item) => (item.status == "claimed" && item.claimedby == name))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const navigate = useNavigate();
+    const setName = useUser(store => store.setUserName);
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];
     const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item onClick={() => handleSubClick(item.link)} key={item.link}>{item.label}</Menu.Item>
     ));
+    useEffect(() => {
+        if (name.length===0) {
+            setName("Default");
+        }
+    }, []);
     const handleClick = (link: string) => {
         if (link==='username'){
             return;
