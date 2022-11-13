@@ -7,16 +7,18 @@ import { useState } from 'react';
 import { MyTasks } from "./MyTasks";
 import { IconLogout } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
+import { Task } from "../components/SelectTable";
+
+interface DashboardProps {
+    data: Task[];
+    setData: Function;
+}
 
 // status can be unclaimed, claimed, or finished. Only unclaimed tasks are shown. When finished tasks are confirmed, delete.
-export function Dashboard(){
+export function Dashboard({data, setData}:DashboardProps){
     const [page, setPage] = useState("tasks");
-    const [data, setData] = useState([
-        {name: "Andrew Huang", desc: "food", start: "simmon", end: "nv", start_task: "be good", end_task: "random", claimedby: "bleh", id: "2", status : "unclaimed"},
-        {name: "Daniel Hong", desc: "snak", start: "nv", end: "new", start_task: "be good", end_task: "random", claimedby: "bleh", id: "3", status : "claimed"},
-        {name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", start_task: "be good", end_task: "random", claimedby: "bleh", id: "4", status : "unclaimed"},
-    ]);
     const [selection, setSelection] = useState([]);
+    const [inProgress, setProgress] = useState(false);
 
     console.log(data);
     const claimTasks = () => {

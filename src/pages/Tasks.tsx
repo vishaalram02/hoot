@@ -47,7 +47,7 @@ export function Tasks({claimTasks, data, selection, setSelection}: TaskProps){
             <a
             className={cx(classes.link)}
             onClick={(event) => {
-                setPopUp(true);
+                if(selection.length > 0) setPopUp(true);
             }}
             >
             Preview Route
