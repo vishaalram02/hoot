@@ -33,6 +33,7 @@ export function RouteInfo({ setData, setPage, dirData, fulldata, data, setDirDat
             <Loader />
         )
     }
+    console.log(labels);
     return (
         <div style={{width: '100%', height: '100%'}}>
             <Group position="apart" grow>
