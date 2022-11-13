@@ -15,16 +15,18 @@ export function Dashboard(){
         { avatar: "string", name: "Daniel Hong", desc: "snak", locations: "nv", id: "3", status : "claimed"},
         { avatar: "string", name: "Andrew Huang", desc: "asdf", locations: "bofdsafds", id: "4", status : "unclaimed"},
     ]);
+    const [selection, setSelection] = useState(['1']);
+
     console.log(data);
-    const claimTasks = (idList:string[]) => {
+    const claimTasks = () => {
         setData(data.map((task) => {
-            if(idList.filter((item) => (item === task.id)).length > 0){
+            if(selection.filter((item) => (item === task.id)).length > 0){
                 task.status = "claimed";
             }
             return task;
         }));
     }
-    const tasks = <Tasks claimTasks = {claimTasks} data = {data}></Tasks>;
+    const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection}></Tasks>;
     const newtask = <NewTask></NewTask>;
     const routeinfo = <RouteInfo></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;

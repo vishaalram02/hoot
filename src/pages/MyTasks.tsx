@@ -29,7 +29,7 @@ interface MyTaskProps {
 }
 
 export function MyTasks({data}: MyTaskProps){
-    const selectTable = <TableSelection data = {data.filter((item) => (item.name === "Daniel Hong"))}></TableSelection>;
+    const selectTable = <TableSelection data = {data.filter((item) => (item.name === "Daniel Hong"))} selection = {[]} setSelection = {Function()}></TableSelection>;
     return (
         <div>
             {selectTable}

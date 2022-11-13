@@ -12,17 +12,17 @@ const useStyles = createStyles((theme) => ({
 
 export interface TableSelectionProps {
   data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
+  selection: string[];
+  setSelection: Function;
 }
 
-export function TableSelection({ data }: TableSelectionProps) {
+export function TableSelection({ data, selection, setSelection}: TableSelectionProps) {
   const { classes, cx } = useStyles();
-  const [selection, setSelection] = useState(['1']);
   const toggleRow = (id: string) =>
-    setSelection((current) =>
-      current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
+    setSelection(selection.includes(id) ? selection.filter((item) => item !== id) : [...selection, id]
     );
   const toggleAll = () =>
-    setSelection((current) => (current.length === data.length ? [] : data.map((item) => item.id)));
+    setSelection(selection.length === data.length ? [] : data.map((item) => item.id));
 
   const rows = data.filter((task) => (task.status = "unclaimed")).map((item) => {
     const selected = selection.includes(item.id);

@@ -27,12 +27,14 @@ const useStyles = createStyles((theme) => ({
 interface TaskProps {
     claimTasks: Function;
     data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
+    selection: string[];
+    setSelection: Function;
 }
 
-export function Tasks({claimTasks, data}: TaskProps){
+export function Tasks({claimTasks, data, selection, setSelection}: TaskProps){
     const { classes, cx } = useStyles();
     const [popUp, setPopUp] = useState(false);
-    const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed"))}></TableSelection>;
+    const selectTable = <TableSelection data = {data.filter((item) => (item.status === "unclaimed")) } selection = {selection} setSelection = {setSelection}></TableSelection>;
     const preview = popUp ? <Preview claimTasks = {claimTasks} data = {data.filter((item) => (item))} setPopUp = {setPopUp}></Preview> : <></>;
     return (
         <div>
