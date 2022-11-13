@@ -11,9 +11,9 @@ import { MyTasks } from "./MyTasks";
 export function Dashboard(){
     const [page, setPage] = useState("tasks");
     const [data, setData] = useState([
-        { avatar: "string", name: "Andrew Huang", desc: "food", locations: "simmon", id: "2", status : "unclaimed"},
-        { avatar: "string", name: "Daniel Hong", desc: "snak", locations: "nv", id: "3", status : "claimed"},
-        { avatar: "string", name: "Andrew Huang", desc: "asdf", locations: "bofdsafds", id: "4", status : "unclaimed"},
+        { avatar: "string", name: "Andrew Huang", desc: "food", start: "simmon", end: "nv", id: "2", status : "unclaimed"},
+        { avatar: "string", name: "Daniel Hong", desc: "snak", start: "nv", end: "new", id: "3", status : "claimed"},
+        { avatar: "string", name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", id: "4", status : "unclaimed"},
     ]);
     const [selection, setSelection] = useState(['1']);
 
@@ -26,8 +26,11 @@ export function Dashboard(){
             return task;
         }));
     }
-    const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection}></Tasks>;
-    const newtask = <NewTask></NewTask>;
+    const addTask = (task: {avatar: string; name: string; desc: string; start: string, end: string; id: string; status: string;}) => {
+        data.push(task);
+    }
+    const tasks = <Tasks claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask}></Tasks>;
+    const newtask = <NewTask claimTasks = {claimTasks} data = {data} addTask = {addTask}></NewTask>;
     const routeinfo = <RouteInfo></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];

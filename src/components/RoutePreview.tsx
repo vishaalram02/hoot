@@ -29,7 +29,7 @@ const useStyles = createStyles((theme) => ({
 
 interface PreviewProps {
     claimTasks: Function;
-    data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
+    data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
     setPopUp: Function;
 }
 

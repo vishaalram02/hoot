@@ -11,9 +11,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export interface TableSelectionProps {
-  data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
   selection: string[];
   setSelection: Function;
+  data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
 }
 
 export function TableSelection({ data, selection, setSelection}: TableSelectionProps) {
@@ -44,7 +44,8 @@ export function TableSelection({ data, selection, setSelection}: TableSelectionP
           </Group>
         </td>
         <td>{item.desc}</td>
-        <td>{item.locations}</td>
+        <td>{item.start}</td>
+        <td>{item.end}</td>
       </tr>
     );
   });
@@ -64,7 +65,8 @@ export function TableSelection({ data, selection, setSelection}: TableSelectionP
             </th>
             <th>Name</th>
             <th>Description</th>
-            <th>Locations</th>
+            <th>Start Location</th>
+            <th>End Location</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

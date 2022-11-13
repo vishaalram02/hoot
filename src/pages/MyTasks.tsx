@@ -25,7 +25,7 @@ const useStyles = createStyles((theme) => ({
   }));
 
 interface MyTaskProps {
-    data: { avatar: string; name: string; desc: string, locations: string, id: string, status : string}[];
+    data: { avatar: string; name: string; desc: string, start: string, end: string, id: string, status : string}[];
 }
 
 export function MyTasks({data}: MyTaskProps){
