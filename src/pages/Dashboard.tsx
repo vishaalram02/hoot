@@ -109,8 +109,8 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
         if (link==='username'){
             return;
         }
-        else if (link==='route' && data.filter((item) => (selection.filter((id) => (item.id === id && item.status==="claimed")).length > 0)).length === 0){
-            setPage('tasks');
+        else if (link==='route' && data.filter((item) => (item.status === "claimed"  && item.claimedby === name)).length === 0){
+            
         }
         else {
             setPage(link);

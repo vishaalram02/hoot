@@ -34,9 +34,10 @@ interface PreviewProps {
     data: Task[];
     setPopUp: Function;
     setDirData: Function;
+    setSelection: Function;
 }
 
-export function Preview({ claimTasks, data, setPopUp, setDirData}: PreviewProps){
+export function Preview({ claimTasks, data, setPopUp, setDirData, setSelection}: PreviewProps){
     const clear = usePath((store) => store.clear);
     const { classes, cx } = useStyles();
     if(data.length === 0){
@@ -50,6 +51,7 @@ export function Preview({ claimTasks, data, setPopUp, setDirData}: PreviewProps)
             onClick={(event) => {
                 clear();
                 claimTasks();
+                setSelection([]);
             }}
             >
             Claim Tasks
