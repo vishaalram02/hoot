@@ -1,4 +1,4 @@
-import { AppShell, Button, Center, Group, TextInput } from "@mantine/core";
+import { AppShell, Button, Center, Group, Stack, TextInput } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -24,16 +24,18 @@ export function Home(){
     };
     return (
         <form onSubmit={form.onSubmit((values) => handleClick(values))}>
-        <Center>
+        <Stack mt = {100}>
+        <Center mt = {100}>
         <TextInput
             label = "Username"
             placeholder = "Alyssa P. Hacker"
             {...form.getInputProps('username')}
         />
         </Center>
-        <Group position="center" mt="md">
+        <Group position="center">
           <Button mt = "md" type="submit" rightIcon = {<IconLogin/>}>Login</Button>
-        </Group>
+        </Group>    
+        </Stack>
       </form>
     )
 }
