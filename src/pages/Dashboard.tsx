@@ -71,6 +71,7 @@ interface HeaderSearchProps {
 }
 
 export function Dashboard({ links, data, setData }: HeaderSearchProps) {
+    const name = useUser(store => store.userName);
     const [dirData, setDirData] = useState<google.maps.DirectionsResult | undefined>(undefined);
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
@@ -80,6 +81,7 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
         setData(data.map((task) => {
             if(selection.filter((item) => (item === task.id)).length > 0){
                 task.status = "claimed";
+                task.claimedby = name;
             }
             return task;
         }));
@@ -89,10 +91,9 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
     }
     const tasks = <Tasks setDirData = {setDirData} claimTasks = {claimTasks} data = {data} selection = {selection} setSelection = {setSelection} addTask = {addTask} ></Tasks>;
     const newtask = <NewTask claimTasks = {claimTasks} addTask = {addTask}></NewTask>;
-    const routeinfo = <RouteInfo data = {data.filter((item) => (selection.filter((id) => (item.id === id)).length > 0))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
+    const routeinfo = <RouteInfo data = {data.filter((item) => (item.status == "claimed" && item.claimedby == name))} dirData={dirData} setDirData = {setDirData}></RouteInfo>;
     const mytasks = <MyTasks data = {data}></MyTasks>;
     const navigate = useNavigate();
-    const name = useUser(store => store.userName);
     const display = {"tasks": tasks, "newtask": newtask, "route": routeinfo, "mytasks": mytasks}[page];
     const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
