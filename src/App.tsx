@@ -8,9 +8,9 @@ import { useUser } from "./hooks/user";
 export default function App() {
   const name = useUser(store => store.userName);
   const [data, setData] = useState([
-    {name: "Andrew Huang", desc: "food", start: "Simmons Houuse", end: "New Vassar", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "2", status : "unclaimed"},
-    {name: "Daniel Hong", desc: "snak", start: "New Vassar", end: "New", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "3", status : "claimed"},
-    {name: "Andrew Huang", desc: "asdf", start: "Hayden Library", end: "Maseeh Hall", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "4", status : "unclaimed"},
+    {name: "Andrew Huang", desc: "Get a snack", start: "229 Vassar St, Cambridge, MA 02139, USA", end: "189 Vassar St, Cambridge, MA 02139, USA", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "2", status : "unclaimed"},
+    {name: "Daniel Hong", desc: "Print a pset at Hayden", start: "Hayden", end: "New House", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "3", status : "unclaimed"},
+    {name: "Andrew Huang", desc: "asdf", start: "bofdsafds", end: "asdfpa", start_task: "be good", end_task: "random", start_loc: {lat: 0, lng: 0}, end_loc: {lat: 0, lng: 0}, claimedby: "bleh", id: "4", status : "claimed"},
   ]);
   return (
     <MantineProvider theme = {{colorScheme: "light"}} withGlobalStyles withNormalizeCSS>
