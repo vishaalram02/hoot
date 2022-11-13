@@ -157,7 +157,7 @@ export function Dashboard({ links, data, setData }: HeaderSearchProps) {
         <Header height={60} className = {classes.header}>
         <Container className={classes.inner} fluid>
             <Group spacing = {5}>
-            <Image width = {110} height = {60} src = {"vishaals logo.png"}></Image>
+            <Image width = {50} height = {60} src = {"vishaals logo.png"}></Image>
             <Title className = {classes.title}>hoot</Title>
             </Group>
             <Group spacing={5} className={classes.links}>
